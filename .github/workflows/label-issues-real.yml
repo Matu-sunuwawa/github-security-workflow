@@ -8,7 +8,7 @@ on:
 jobs:
   assign-label:
     permissions:    # This is we restricted the permissions to only allow writing to issues. And not on other resources.like pull requests or workflows.
-      issues: read
+      issues: write
     runs-on: ubuntu-latest
     steps:
       - name: Assign label
