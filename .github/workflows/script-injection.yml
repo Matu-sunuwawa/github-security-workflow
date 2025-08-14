@@ -21,7 +21,7 @@ jobs:
 
 
 # SOLUTION #1:
-  # - use custom action to assign label
+ # - use custom action to assign label
 # jobs:
 #   assign-label:
 #     runs-on: ubuntu-latest
