@@ -8,7 +8,7 @@ on:
 jobs:
   assign-label:
     permissions:    # This is we restricted the permissions to only allow writing to issues. And not on other resources.like pull requests or workflows.
-      issues: write
+      issues: read
     runs-on: ubuntu-latest
     steps:
       - name: Assign label
@@ -16,7 +16,7 @@ jobs:
         run: |
           curl -X POST \
           --url https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels \
-          -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \    # This is doing some magic... automatically creating a token for the workflow based on the permissions we set.
           -H 'content-type: application/json' \
           -d '{
               "labels": ["bug"]
